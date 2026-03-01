@@ -2,7 +2,7 @@ CREATE TYPE public.account_type AS ENUM
     ('Client', 'Employee', 'Admin');
 
 ALTER TYPE public.account_type
-    OWNER TO cse340;
+    OWNER TO cse340hm;
 
 /* Classification Table */
 CREATE TABLE public.classification(
@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS public.inventory(
 	inv_color CHARACTER VARYING NOT NULL,
 	classification_id INTEGER NOT NULL,
 	CONSTRAINT inventory_pkey PRIMARY KEY (inv_id)
-)
+);
 
 /* Create relationship between classification and inventory tables */
 ALTER TABLE IF EXISTS public.inventory
