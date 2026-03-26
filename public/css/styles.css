@@ -207,6 +207,17 @@ footer{
   margin-bottom: 0.5rem;
 }
 
+/* Error View Styles */
+.error-message{
+  margin-top: 1rem;
+  font-weight: bold;
+  color: #b91c1c;
+}
+
+.error-humor{
+  margin-top: 1rem;
+  color: black;
+}
 /* Desktop Styles */
 @media (min-width: 40rem) {
 
