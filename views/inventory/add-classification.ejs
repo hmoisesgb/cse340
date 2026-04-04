@@ -2,7 +2,7 @@
 <%- messages() %>
 <form class="formCard" action="/inv/addClassification" method="post">
     <label for="classification_name">Classification Name:</label>
-    <input type="text" id="classification_name" name="classification_name" required">
+    <input type="text" id="classification_name" name="classification_name" placeholder="Name" required>
     <span>Classification names must only contain alphabetic characters.</span>
     <button type="submit" id="addClassificationButton">Add Classification</button>
 </form>
