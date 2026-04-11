@@ -1,0 +1,39 @@
+<h1> <%= title %></h1>
+<%- messages() %>
+
+<form class="formCard" action="/inv/update" method="post">
+    <label for="classification_id">Vehicle Classification</label>
+    <%- classificationList %>
+    <label for="inv_make">Vehicle Make</label>
+    <input type="text" id="inv_make" name="inv_make" placeholder="Make (min 3 letters)" required value="<%= locals.inv_make %>">
+    <label for="inv_model">Vehicle Model</label>
+    <input type="text" id="inv_model" name="inv_model" placeholder="Model (min 3 letters)" required value="<%= locals.inv_model %>">
+    <label for="inv_year">Vehicle Year</label>
+    <input type="number" id="inv_year" name="inv_year" placeholder="4 digit year" required value="<%= locals.inv_year %>">
+    <label for="inv_description">Vehicle Description</label>
+    <textarea id="inv_description" name="inv_description" placeholder="Vehicle Description (min 5 letters)" required><%= locals.inv_description || '' %></textarea>
+    <label for="inv_image">Vehicle Image Path</label>
+    <input type="text" id="inv_image" name="inv_image" required value="<%= locals.inv_image%>">
+    <label for="inv_thumbnail">Vehicle Thumbnail Path</label>
+    <input type="text" id="inv_thumbnail" name="inv_thumbnail" required value="<%= locals.inv_thumbnail%>">
+    <label for="inv_price">Vehicle Price</label>
+    <input type="number" id="inv_price" name="inv_price" placeholder="Price (whole number eg. 1500)" required value="<%= locals.inv_price %>">
+    <label for="inv_miles">Vehicle Miles</label>
+    <input type="number" id="inv_miles" name="inv_miles" placeholder="Miles (Number without commas)" required value="<%= locals.inv_miles %>">
+    <label for="inv_color">Vehicle Color</label>
+    <input type="text" id="inv_color" name="inv_color" placeholder="Color (min 3 characters)" required value="<%= locals.inv_color %>">
+    <input type="hidden" id= "inv_id" name="inv_id"
+    <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
+    <% } %>>
+    <button type="submit" disabled>Update Vehicle</button>
+</form>
+
+<% if (errors) { %>
+  <ul class="notice">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<%  }) %>
+ </ul>
+<% } %>
+
+<script src="../../js/inv-update.js"></script>

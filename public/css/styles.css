@@ -289,6 +289,15 @@ footer{
 .formCard button:hover{
   background-color: #1a5aa6;
 }
+/* Disabled button styles */
+.formCard button:disabled {
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+}
+.formCard button:disabled:hover {
+  background-color: #cccccc;
+}
 
 /* Form Validation Styles */
 .formCard input:invalid,
@@ -322,6 +331,14 @@ footer{
 
 .managementContainer a{
   font-size: 1.2rem;
+}
+
+.managementContainer select{
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid black;
+  border-radius: 5px;
 }
 
 /* Add Vehicle Specific Form Styles */

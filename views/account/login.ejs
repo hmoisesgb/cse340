@@ -1,5 +1,12 @@
 <h1><%= title %></h1>
 <%- messages() %>
+<% if (errors) { %>
+  <ul class="notice">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<%  }) %>
+ </ul>
+<% } %>
 
 <form class="formCard" action="/account/login" method="post">
     <label for="account_email">Email:</label>
@@ -9,3 +16,4 @@
     <button type="submit" id="loginButton">Login</button>
     <p>Don't have an account? <a href="/account/register" title="Register Here">Register here</a>.</p>
 </form>
+
