@@ -63,7 +63,7 @@ Util.buildClassificationGrid = async function(data){
 * Build the vehicle details view HTML
 * ************************************ */
 
-Util.buildVehicleDetails = async function(data){
+Util.buildVehicleDetails = async function(data, isFavorite, loggedin){
     let details = '<div id="vehicleDetails">'
     if (data && Object.keys(data).length > 0){
         details += '<img src="' + data.inv_image + '" alt="Image of ' + data.inv_make + ' ' + data.inv_model + ' on CSE Motors" >'
@@ -74,6 +74,21 @@ Util.buildVehicleDetails = async function(data){
         details += '<p><strong>Description: </strong>' + data.inv_description + '</p>'
         details += '<p><strong>Color: </strong>' + data.inv_color + '</p>'
         details += '<p><strong>Miles: </strong>' + new Intl.NumberFormat('en-US').format(data.inv_miles) + '</p>'
+        if(loggedin){
+            if(isFavorite){
+                details += '<form action="/favorites/remove" method="post">'
+                details += `<input type="hidden" name="inv_id" value="${data.inv_id}">`
+                details += '<button type="submit" class="removeFavoriteBtn">Remove from Favorites</button>'
+                details += '</form>'
+            } else {
+                details += '<form action="/favorites/add" method="post">'
+                details += `<input type="hidden" name="inv_id" value="${data.inv_id}">`
+                details += '<button type="submit" class="addFavoriteBtn">Add to Favorites</button>'
+                details += '</form>'
+            }
+        } else {
+            details += '<p><a href="/account/login">Log in to add favorites</a></p>'
+        }
         details += '</div>'
         details += '</div>'
     }
@@ -154,6 +169,37 @@ Util.checkAccountType = (req, res, next) => {
         req.flash("notice", "You do not have permission to access this page.")
         return res.redirect("/")
     }
+}
+
+/* **************************************
+* Build the HTML for the favorites view
+* ************************************ */
+Util.buildFavoritesHTML = async function(data) {
+    let container
+    if (data.length > 0) {
+        container = '<div class="card-container">'
+        data.forEach(vehicle => {
+            container += '<div class="favoriteCard">'
+            container += '<img src="' + vehicle.inv_image + '" alt="Image of ' + vehicle.inv_make + ' ' + vehicle.inv_model + ' on CSE Motors" >'
+            container += '<h2>' + ' ' + vehicle.inv_make + ' ' + vehicle.inv_model + ' </h2>'
+            container += '<p><strong>Price: </strong>' + new Intl.NumberFormat('en-US', {style: 'currency',currency: 'USD'}).format(vehicle.inv_price) +'</p>'
+            container += '<p><strong>Color: </strong>' + vehicle.inv_color + '</p>'
+            container += '<p><strong>Miles: </strong>' + new Intl.NumberFormat('en-US').format(vehicle.inv_miles) + '</p>'
+            container += '<a class="detailsBtn" href="../../inv/detail/' + vehicle.inv_id + '" title="View '
+            + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">'
+            + 'View Vehicle Details </a>'
+            container += '<form action="/favorites/remove" method="post">'
+            container += `<input type="hidden" name="inv_id" value="${vehicle.inv_id}">`
+            container += '<button type="submit" class="removeFavoriteBtn">Remove from Favorites</button>'
+            container += '</form>'
+            container += '</div>'
+        }
+        )
+        container += '</div>'
+    } else {
+        container = '<p class="notice"> No favorites could be found </p>'
+    }
+    return container
 }
 
 module.exports = Util

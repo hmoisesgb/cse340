@@ -1,4 +1,5 @@
 const invModel = require("../models/inventory-model")
+const favModel = require("../models/favorites-model")
 const utilities = require("../utilities")
 
 const invCont = {}
@@ -28,12 +29,17 @@ invCont.buildByClassificationId = async function (req, res, next) {
 invCont.buildVehicleDetailsById = async function (req, res, next) {
     const invId = req.params.invId
     const data = await invModel.getVehicleDetailsById(invId)
+    const account_id = res.locals.accountData?.account_id
+    let isFavorite = false
+    if (account_id){
+        isFavorite = await favModel.checkFavorite(account_id, invId)
+    }
 
     if (!data) {
         return next({ status: 404, message: "Sorry, we couldn't find that vehicle." })
     }
     
-    const details = await utilities.buildVehicleDetails(data)
+    const details = await utilities.buildVehicleDetails(data, isFavorite, res.locals.loggedin)
     let nav = await utilities.getNav()
     res.render("./inventory/vehicle-details", {
         title: data.inv_year + ' ' + data.inv_make + ' ' + data.inv_model,

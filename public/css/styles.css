@@ -357,6 +357,105 @@ footer{
   border-radius: 5px;
 }
 
+/* Favorites View Styles */
+.card-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.favoriteCard {
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding-bottom: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.favoriteCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.favoriteCard img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.favoriteCard h2 {
+  text-align: center;
+  margin: 0.75rem 0;
+  font-size: 1.2rem;
+}
+
+.favoriteCard p {
+  text-align: center;
+  margin: 0.4rem 0;
+}
+
+.favoriteCard strong {
+  color: #004080;
+}
+
+.removeFavoriteBtn {
+  display: block;
+  width: 80%;
+  margin: 1rem auto 0 auto;
+  padding: 0.6rem;
+  background-color: #b91c1c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.removeFavoriteBtn:hover {
+  background-color: #991b1b;
+}
+
+.addFavoriteBtn {
+  display: block;
+  width: 80%;
+  margin: 1rem auto;
+  padding: 0.6rem;
+  background-color: #004080;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.addFavoriteBtn:hover {
+  background-color: #1a5aa6;
+}
+
+.detailsBtn {
+  display: block;
+  width: 80%;
+  margin: 0.75rem auto;
+  padding: 0.6rem;
+  background-color: transparent;
+  color: #004080;
+  border: 2px solid #004080;
+  border-radius: 5px;
+  text-align: center;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.detailsBtn:hover {
+  background-color: #004080;
+  color: white;
+}
+
 /* Desktop Styles */
 @media (min-width: 40rem) {
 
@@ -441,5 +540,10 @@ footer{
   .formCard{
     max-width: 400px;
     margin: 2rem auto;
+  }
+
+  /* Favorites view responsive */
+  .card-container{
+    grid-template-columns: repeat(2, 1fr);
   }
 }
